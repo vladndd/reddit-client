@@ -4,8 +4,7 @@ mutation Register($options: RegisterInput!) {
       ...RegUser
     }
     errors {
-      field
-      message
+      ...RegError
     }
   }
 }
