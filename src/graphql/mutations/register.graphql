@@ -3,8 +3,7 @@ mutation Register($username: String!, $password: String!, $email: String!) {
     options: { username: $username, password: $password, email: $email }
   ) {
     user {
-      id
-      username
+      ...RegUser
     }
     errors {
       field
@@ -12,4 +11,3 @@ mutation Register($username: String!, $password: String!, $email: String!) {
     }
   }
 }
-
