@@ -12,7 +12,11 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/ErrorMsg";
 import NextLink from "next/link";
 
-const ChangePassword: NextPage<{ token: string }> = ({ token }) => {
+interface changePasswordProps {
+  token: string;
+}
+
+const ChangePassword: NextPage<changePasswordProps> = ({ token }) => {
   const router = useRouter();
   const [, changePassword] = useChangePasswordMutation();
   const [tokenError, setTokenError] = useState("");
