@@ -1,6 +1,5 @@
 import { Box, Button, Flex, Link } from "@chakra-ui/core";
 import { Formik, Form } from "formik";
-import { NextPage } from "next";
 import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/router";
 import React from "react";
@@ -12,11 +11,7 @@ import { createUrqlClient } from "../../utils/createUrqlClient";
 import { toErrorMap } from "../../utils/ErrorMsg";
 import NextLink from "next/link";
 
-interface changePasswordProps {
-  token: string;
-}
-
-const ChangePassword: NextPage<changePasswordProps> = ({ token }) => {
+const ChangePassword: React.FC<{}> = () => {
   const router = useRouter();
   const [, changePassword] = useChangePasswordMutation();
   const [tokenError, setTokenError] = useState("");
@@ -27,7 +22,7 @@ const ChangePassword: NextPage<changePasswordProps> = ({ token }) => {
         onSubmit={async (values, { setErrors }) => {
           const response = await changePassword({
             newPassword: values.newPassword,
-            token,
+            token: router.query.token as any,
           });
           if (response.data?.changePassword.errors) {
             const errorMap = toErrorMap(response.data.changePassword.errors);
@@ -50,7 +45,9 @@ const ChangePassword: NextPage<changePasswordProps> = ({ token }) => {
             />
             {tokenError && (
               <Flex>
-                <Box mr={2} style={{ color: "red" }}>{tokenError}</Box>
+                <Box mr={2} style={{ color: "red" }}>
+                  {tokenError}
+                </Box>
                 <NextLink href="/forgot-password">
                   <Link>click here to get a new one</Link>
                 </NextLink>
@@ -70,12 +67,6 @@ const ChangePassword: NextPage<changePasswordProps> = ({ token }) => {
       </Formik>
     </Wrapper>
   );
-};
-
-ChangePassword.getInitialProps = ({ query }) => {
-  return {
-    token: query.token as string,
-  };
 };
 
 export default withUrqlClient(createUrqlClient)(ChangePassword);

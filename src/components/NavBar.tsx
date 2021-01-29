@@ -53,6 +53,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
 
   return (
     <Flex position="sticky" zIndex={1} top={0} bg="black" p={4}>
+      <NextLink href="/">
+        <Link mr={4} color="white">Home</Link>
+      </NextLink>
+      <NextLink href="/create-post">
+        <Link color="white">Create a post</Link>
+      </NextLink>
       <Box ml={"auto"}>{body}</Box>
     </Flex>
   );
