@@ -7,10 +7,10 @@ import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/core";
 
 const Index = () => {
   const [variables, setVariables] = useState({
-    limit: 10,
+    limit: 5,
     cursor: null as null | string,
   });
-  const [{ data, fetching }] = usePostsQuery({
+  const [{ data, fetching, stale }] = usePostsQuery({
     variables,
   });
 
@@ -43,7 +43,7 @@ const Index = () => {
                 cursor: data.posts.posts[data.posts.posts.length - 1].createdAt,
               });
             }}
-            isLoading={fetching}
+            isLoading={stale}
             m="auto"
             my={8}
           >
