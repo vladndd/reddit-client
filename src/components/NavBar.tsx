@@ -32,32 +32,47 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
     // user is logged in
   } else {
     body = (
-      <Box>
-        <Flex align="center">
-          <Text color="white" mr={5} fontSize="x">
-            {data.me.username}
-          </Text>
-          <Button
-            isLoading={logoutFetching}
-            onClick={() => logout()}
-            variant="link"
-          >
-            logout
-          </Button>
-        </Flex>
-      </Box>
+      <>
+        <Box>
+          <NextLink href="/create-post">
+            <Button color="black" as={Link}>
+              create post
+            </Button>
+          </NextLink>
+        </Box>
+        <Box ml={"auto"}>
+          <Flex align="baseline">
+            <Text color="white" mr={5} fontSize="20px">
+              {data.me.username}
+            </Text>
+            <Button
+              isLoading={logoutFetching}
+              onClick={() => logout()}
+              variant="link"
+            >
+              logout
+            </Button>
+          </Flex>
+        </Box>
+      </>
     );
   }
 
   return (
-    <Flex position="sticky" alignItems={"baseline"} zIndex={1} top={0} bg="black" p={4}>
+    <Flex
+      position="sticky"
+      alignItems={"baseline"}
+      zIndex={1}
+      top={0}
+      bg="black"
+      p={4}
+    >
       <NextLink href="/">
-        <Link mr={8} fontSize={26} color="white">Caracall Forum</Link>
+        <Link mr={8} fontSize={26} color="white">
+          Caracall Forum
+        </Link>
       </NextLink>
-      <NextLink href="/create-post">
-        <Link color="white">Create a post</Link>
-      </NextLink>
-      <Box ml={"auto"}>{body}</Box>
+      {body}
     </Flex>
   );
 };
